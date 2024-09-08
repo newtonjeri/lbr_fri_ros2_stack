@@ -25,7 +25,7 @@ class GZMixin:
                     ]
                 )
             ),
-            launch_arguments=[('gz_args', [' -r -v 4 empty.sdf'])],
+            launch_arguments=[("gz_args", [" -r -v 4 empty.sdf"])],
             **kwargs,
         )
 
