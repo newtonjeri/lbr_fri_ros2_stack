@@ -25,6 +25,14 @@ ament_target_dependencies(hello_moveit
   rclcpp
 )
 
+add_executable(beer_tapping_node src/beer_tap_motion_planner.cpp)
+
+ament_target_dependencies(beer_tapping_node
+  geometry_msgs  
+  moveit_ros_planning_interface
+  rclcpp
+)
+
 add_executable(tapping_node src/tapping_motion_generator_node.cpp)
 
 ament_target_dependencies(tapping_node
@@ -38,7 +46,7 @@ install(DIRECTORY launch
   DESTINATION share/${PROJECT_NAME}
 )
 
-install(TARGETS hello_moveit tapping_node
+install(TARGETS hello_moveit tapping_node beer_tapping_node
   DESTINATION lib/${PROJECT_NAME}
 )
 
