@@ -182,7 +182,7 @@ int main(int argc, char **argv){
   planToJointSpaceTarget(move_group_interface, home_joint_values);
 
 
-  """ 
+  /*
     1. Setup and Initialization:
     The environment is loaded and the pose of the glass is read.
     The robot's end effector link is set, and any previous glass objects in the scene are removed.
@@ -229,7 +229,7 @@ int main(int argc, char **argv){
     
     14. Ensure All Joints are at Zero:
     The robot performs a final motion to ensure that all joints are set to 0°, ensuring readiness for the next operation.
-  """
+  */
 
   rclcpp::shutdown();
 
