@@ -26,7 +26,6 @@ ament_target_dependencies(hello_moveit
 )
 
 add_executable(beer_tapping_node src/beer_tap_motion_planner.cpp)
-
 ament_target_dependencies(beer_tapping_node
   geometry_msgs  
   moveit_ros_planning_interface
@@ -34,19 +33,33 @@ ament_target_dependencies(beer_tapping_node
 )
 
 add_executable(tapping_node src/tapping_motion_generator_node.cpp)
-
 ament_target_dependencies(tapping_node
   geometry_msgs  
   moveit_ros_planning_interface
   rclcpp
 )
 
+add_executable(update_planning_scene src/update_planning_scene.cpp)
+ament_target_dependencies(update_planning_scene
+  rclcpp
+  moveit_ros_planning_interface
+  moveit_msgs
+  geometry_msgs
+  shape_msgs
+  tf2_geometry_msgs
+)
 
-install(DIRECTORY launch
+
+install(DIRECTORY launch scene_meshes
   DESTINATION share/${PROJECT_NAME}
 )
 
-install(TARGETS hello_moveit tapping_node beer_tapping_node
+install(
+  TARGETS
+    hello_moveit
+    tapping_node
+    beer_tapping_node
+    update_planning_scene
   DESTINATION lib/${PROJECT_NAME}
 )
 
