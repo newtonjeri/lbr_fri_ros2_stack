@@ -5,6 +5,7 @@
 
     <!-- include the lbr iiwa macro -->
     <xacro:include filename="$(find lbr_description)/urdf/iiwa14/iiwa14_description.xacro" />
+    <xacro:include filename="$(find lbr_description)/urdf/iiwa14/beer_tool.xacro" />
 
     <xacro:arg name="robot_name" default="lbr" />
     <xacro:arg name="mode" default="true" />
@@ -18,6 +19,7 @@
     <!--joint
         between world and link_0-->
     <joint name="world_joint" type="fixed">
+        <origin xyz="${0.61/2} 0.15 0.703" rpy="0.0 0.0 0.0"/>
         <parent link="world" />
         <child link="link_0" />
     </joint>
