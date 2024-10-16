@@ -212,19 +212,19 @@ int main(int argc, char **argv)
     move_group_interface.setMaxAccelerationScalingFactor(0.5);
 
     // Step 1: Move to the starting position (near the tap)
-    geometry_msgs::msg::Pose start_pose;
-    start_pose.orientation.w = 1.0; // Keep upright
-    start_pose.position.x = 0.4247147000111241; // Adjust based on your setup
-    start_pose.position.y = 0.330714209815223856; // Adjust based on your setup
-    start_pose.position.z = 0.39787333095725463; // Adjust height based on your setup
-    RCLCPP_INFO(LOGGER, "1. Moving to starting position");
-    planToTargetPose(move_group_interface, start_pose);
+    // geometry_msgs::msg::Pose start_pose;
+    // start_pose.orientation.w = 1.0; // Keep upright
+    // start_pose.position.x = 0.4247147000111241; // Adjust based on your setup
+    // start_pose.position.y = 0.330714209815223856; // Adjust based on your setup
+    // start_pose.position.z = 0.39787333095725463; // Adjust height based on your setup
+    // RCLCPP_INFO(LOGGER, "1. Moving to starting position");
+    // planToTargetPose(move_group_interface, start_pose);
 
     // Step 2: Move to the glass pickup position
     geometry_msgs::msg::Pose glass_pickup_pose;
-    glass_pickup_pose.position.x = 0.5; // Replace with actual position from ROS1
-    glass_pickup_pose.position.y = -0.1; // Replace with actual position from ROS1
-    glass_pickup_pose.position.z = 0.4;  // Replace with actual position from ROS1
+    glass_pickup_pose.position.x = -0.1; // Replace with actual position from ROS1
+    glass_pickup_pose.position.y = 0.9; // Replace with actual position from ROS1
+    glass_pickup_pose.position.z = 1.0;  // Replace with actual position from ROS1
     RCLCPP_INFO(LOGGER, "2. Moving to glass pickup position");
     planToTargetPose(move_group_interface, glass_pickup_pose);
 
@@ -242,9 +242,9 @@ int main(int argc, char **argv)
 
     // Step 5: Move to the tap position
     geometry_msgs::msg::Pose tap_pose;
-    tap_pose.position.x = 0.5; // Position above the tap
-    tap_pose.position.y = 0.2; // Adjust as needed
-    tap_pose.position.z = 0.4; // Adjust as needed
+    tap_pose.position.x = 0.7; // Position above the tap
+    tap_pose.position.y = -0.9; // Adjust as needed
+    tap_pose.position.z = 1.0; // Adjust as needed
     tap_pose.orientation.x = 0.0;
     tap_pose.orientation.y = 0.707; // 45 degree tilt for proper pouring
     tap_pose.orientation.z = 0.0;
@@ -260,7 +260,7 @@ int main(int argc, char **argv)
     // Step 7: Move to the serving position
     geometry_msgs::msg::Pose serving_pose;
     serving_pose.position.x = 0.7; // Adjust for serving area
-    serving_pose.position.y = -0.2; // Adjust Y-axis for serving area
+    serving_pose.position.y = 0.2; // Adjust Y-axis for serving area
     serving_pose.position.z = 0.4; // Adjust height for placing the glass
     serving_pose.orientation.w = 1.0; // Keep upright after pouring
     RCLCPP_INFO(LOGGER, "7. Moving to serving position");

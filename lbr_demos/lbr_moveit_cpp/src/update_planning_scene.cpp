@@ -59,14 +59,13 @@ void loadEnvironment()
 
     // Assuming pose_ZH was previously read from calibration and available in the same function
     geometry_msgs::msg::Pose pose_ZH;
-    pose_ZH.position.x = 0.7641;
-    pose_ZH.position.y = -0.0346;
-    pose_ZH.position.z = 0.5319;
-    pose_ZH.orientation.x = 0.6909;
-    pose_ZH.orientation.y = 0.723;
+    pose_ZH.position.x = 0.7;
+    pose_ZH.position.y = -0.9;
+    pose_ZH.position.z = table_height + 0.2;
+    pose_ZH.orientation.x = 0.7071;
+    pose_ZH.orientation.y = -0.7071;
     pose_ZH.orientation.z = 0.0;
     pose_ZH.orientation.w = 0.0;
-
 
     // Set the pose of the tap handle
     geometry_msgs::msg::Pose tap_handle_pose;
@@ -159,71 +158,13 @@ void loadEnvironment()
     table.primitives.push_back(table_primitive);
     
     geometry_msgs::msg::Pose table_pose;
-    table_pose.position.y = -table_depth/2;
+    // table_pose.position.y = -table_depth;
+
+    table_pose.position.y = -table_height;
     // double z_floor = tap_handle_pose.position.z - height_tap_handle / 2 + height_platform; // Z of the floor in tap_handle/Bottom
     table_pose.position.z = table_height / 2;
     table.primitive_poses.push_back(table_pose);
     
-
-    // // Glass Base
-    // moveit_msgs::msg::CollisionObject glass_base;
-    // glass_base.id = "glass_base";
-    // glass_base.header.frame_id = "tap_handle/Bottom";
-    
-    // shape_msgs::msg::SolidPrimitive glass_base_primitive;
-    // glass_base_primitive.type = shape_msgs::msg::SolidPrimitive::CYLINDER;
-    // glass_base_primitive.dimensions = {height_glass_base, radius_glass_base};
-    // glass_base.primitives.push_back(glass_base_primitive);
-    
-    // geometry_msgs::msg::Pose glass_base_pose;
-    // glass_base_pose.position.x = -lateral_shift_glass;
-    // glass_base_pose.position.z = z_floor - table_height - height_glass_base / 2;
-    // glass_base.primitive_poses.push_back(glass_base_pose);
-    
-    // glass_base.operation = moveit_msgs::msg::CollisionObject::ADD;
-    // glass_base.subframe_names.push_back("Top");
-    // glass_base.subframe_poses.push_back(geometry_msgs::msg::Pose());
-    // glass_base.subframe_poses[0].position.z = -height_glass_base / 2;
-    
-    // // Stem
-    // moveit_msgs::msg::CollisionObject glass_stem;
-    // glass_stem.id = "glass_stem";
-    // glass_stem.header.frame_id = "glass_base/Top";
-    
-    // shape_msgs::msg::SolidPrimitive glass_stem_primitive;
-    // glass_stem_primitive.type = shape_msgs::msg::SolidPrimitive::CYLINDER;
-    // glass_stem_primitive.dimensions = {height_glass_stem, radius_glass_stem};
-    // glass_stem.primitives.push_back(glass_stem_primitive);
-    
-    // geometry_msgs::msg::Pose glass_stem_pose;
-    // glass_stem_pose.position.z = -height_glass_stem / 2;
-    // glass_stem.primitive_poses.push_back(glass_stem_pose);
-    
-    // glass_stem.operation = moveit_msgs::msg::CollisionObject::ADD;
-    // glass_stem.subframe_names.push_back("Top");
-    // glass_stem.subframe_poses.push_back(geometry_msgs::msg::Pose());
-    // glass_stem.subframe_poses[0].position.z = -height_glass_stem / 2;
-    
-    
-    // // Glass
-    // moveit_msgs::msg::CollisionObject glass;
-    // glass.id = "glass";
-    // glass.header.frame_id = "glass_stem/Top";
-    
-    // shape_msgs::msg::SolidPrimitive glass_primitive;
-    // glass_primitive.type = shape_msgs::msg::SolidPrimitive::CYLINDER;
-    // glass_primitive.dimensions = {height_glass, radius_glass};
-    // glass.primitives.push_back(glass_primitive);
-    
-    // geometry_msgs::msg::Pose glass_pose;
-    // glass_pose.position.z = -height_glass / 2;
-    // glass.primitive_poses.push_back(glass_pose);
-    
-    // glass.operation = moveit_msgs::msg::CollisionObject::ADD;
-    // glass.subframe_names.push_back("Top");
-    // glass.subframe_poses.push_back(geometry_msgs::msg::Pose());
-    // glass.subframe_poses[0].position.z = -height_glass / 2;
-
     // Glass from mesh
     // add glass mesh
     shapes::Mesh *glass_mesh = shapes::createMeshFromResource("package://lbr_moveit_cpp/scene_meshes/Bierglas.stl");
@@ -242,6 +183,7 @@ void loadEnvironment()
 
     glasses[0].meshes[0] = glass_mesh_msg;
     glasses[0].mesh_poses[0].position.x = -lateral_shift_glass;
+    glasses[0].mesh_poses[0].position.y = -0.9;
     glasses[0].mesh_poses[0].position.z = table_height;
     glasses[0].mesh_poses[0].orientation.w = 0.7071;
     glasses[0].mesh_poses[0].orientation.x = 0.7071;
@@ -268,23 +210,6 @@ void loadEnvironment()
     geometry_msgs::msg::Pose pose_tap_bottom;
     pose_tap_bottom.position.z = glass_offset + 0.005;
 
-    // Mobile Platform
-    moveit_msgs::msg::CollisionObject mobile_platform;
-    mobile_platform.id = "mobile_platform";
-    mobile_platform.header.frame_id = "world";
-    
-    shape_msgs::msg::SolidPrimitive mobile_platform_primitive;
-    mobile_platform_primitive.type = shape_msgs::msg::SolidPrimitive::BOX;
-    mobile_platform_primitive.dimensions = {depth_platform, width_platform, height_platform};
-    mobile_platform.primitives.push_back(mobile_platform_primitive);
-    
-    geometry_msgs::msg::Pose mobile_platform_pose;
-    mobile_platform_pose.position.z = -height_platform / 2;
-    mobile_platform_pose.position.y = width_platform / 2 - lbr_y;
-    mobile_platform_pose.position.x = 0; // Set x to 0 for centered placement
-    mobile_platform_pose.orientation.w = 1;
-    
-    mobile_platform.operation = moveit_msgs::msg::CollisionObject::ADD;
 
     // Wall 1
     moveit_msgs::msg::CollisionObject wall1;
@@ -330,12 +255,9 @@ void loadEnvironment()
     psi.applyCollisionObject(tap_unit2);
     psi.applyCollisionObject(actuator1);
     psi.applyCollisionObject(table);
-    // psi.applyCollisionObject(glass_base);
-    // psi.applyCollisionObject(glass_stem);
     psi.applyCollisionObject(glasses[0]);
-    psi.applyCollisionObject(mobile_platform);
-    psi.applyCollisionObject(wall1);
-    psi.applyCollisionObject(wall2);
+    // psi.applyCollisionObject(wall1);
+    // psi.applyCollisionObject(wall2);
 }
 
 int main(int argc, char** argv)

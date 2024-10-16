@@ -7,11 +7,10 @@
 
 using namespace std::chrono_literals;
 
-static const rclcpp::Logger LOGGER = rclcpp::get_logger("move_arm");
+static const rclcpp::Logger LOGGER = rclcpp::get_logger("tapping_node");
 
 const double eef_step = 0.005;
 const double jump_threshold = 0.0;
-const std::string cube = "box_peq";
 const std::string support_surface = "world";
 
 geometry_msgs::msg::Pose current_pose;
